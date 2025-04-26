@@ -3,8 +3,11 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user_master");
 
 exports.getLogin = (req, res, next) => {
-  //console.log(req.get("Cookie"));
-  const isLoggedIn = req.get("Cookie").split("=")[1];
+  const cookie = req.get("Cookie");
+  let isLoggedIn = false;
+  if (cookie) {
+    isLoggedIn = cookie.split("=")[1];
+  }
   res.render("auth/login", {
     path: "/login",
     pageTitle: "Login",
