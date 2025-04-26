@@ -415,7 +415,7 @@ exports.getEditTask = async (req, res, next) => {
     if (!task) return res.redirect('/admin/task-list');
 
     const users = await User.find({ 'role.role_name': 'User' }, 'name email');
-    const statuses = await Status.find(); // add this to populate status dropdown
+    const statuses = await Status.find(); 
 
     res.render("admin/task", {
       pageTitle: "Edit Task",
