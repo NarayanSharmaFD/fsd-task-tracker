@@ -1,0 +1,49 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="login-form" action="<%= editing ? '/admin/edit-task/' + task._id : '/admin/task/' + project_id %>"  method="POST">
+            <div class="form-control">
+                <label for="task_name">Task Name</label>
+                <input type="task_name" name="task_name" id="task_name" value="<%= editing ? task.task_name : '' %>" required>
+            </div>
+            <div class="form-control">
+                <label for="task_description">Task Description</label>
+                <input type="task_description" name="task_description" id="task_description" value="<%= editing ? task.task_description : '' %>" required>
+            </div>
+            <div class="form-control">
+                <label for="due_date">Due Date</label>
+                <input type="date" name="due_date" id="due_date" value="<%= editing ? task.task_due_date.toISOString().split('T')[0] : '' %>" required>
+            </div>
+            <div class="form-control">
+                <label for="task_owner">Task Owner</label>
+                <select name="task_owner" id="task_owner" required>
+                    <option value="" disabled selected>Select Project Owner</option>
+                    <% task_owner.forEach(task_owner => { %>
+                        <option value="<%= task_owner._id %>"><%= task_owner.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="status">Status</label>
+                <select name="status" id="status" required>
+                    <option value="" disabled selected>Select Status</option>
+                    <% status.forEach(status => { %>
+                        <option value="<%= status._id %>"><%= status.status_name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <% if (editing) { %>
+                <input type="hidden" name="taskId" value="<%= task_id %>">
+            <% } %>
+            <input type="hidden" name="projectId" value="<%= project_id %>">
+            
+            <button class="btn" type="submit"><%= editing ? 'Update Task' : 'Add Task' %></button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

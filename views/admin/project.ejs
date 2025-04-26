@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="login-form" action="/admin/<% if (editing) { %>edit-project<% } else { %>project<% } %>" method="POST">
+            <div class="form-control">
+                <label for="project_name">Project Name</label>
+                <input type="project_name" name="project_name" id="project_name" value="<% if (editing) { %><%= project.project_name %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="project_description">Project Description</label>
+                <input type="project_description" name="project_description" id="project_description" value="<% if (editing) { %><%= project.project_description %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="start_date">Start Date</label>
+                <input type="date" name="start_date" id="start_date" value="<% if (editing) { %><%= project.project_start_date.toISOString().split('T')[0] %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="end_date">End Date</label>
+                <input type="date" name="end_date" id="end_date" value="<% if (editing) { %><%= project.project_end_date.toISOString().split('T')[0] %><% } %>">
+            </div>
+
+            <div class="form-control">
+                <label for="project_owner">Project Owner</label>
+                <select name="project_owner" id="project_owner" required>
+                    <option value="" disabled selected>Select Project Owner</option>
+                    <% project_owner.forEach(project_owner => { %>
+                        <option value="<%= project_owner._id %>"><%= project_owner.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <% if (editing) { %>
+                <input type="hidden" name="projectId" value="<%= project._id %>">
+            <% } %>
+            
+            <button class="btn" type="submit"><% if (editing) { %>Update Project<% } else { %>Add Project<% } %></button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

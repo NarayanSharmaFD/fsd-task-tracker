@@ -1,0 +1,18 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="product-form" action="/admin/statuses" method="POST">
+            <div class="form-control">
+                <label for="status_name">Status Name</label>
+                <input type="text" name="status_name" id="status_name" required>
+            </div>
+            <button class="btn" type="submit">Add Status</button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>
