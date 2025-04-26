@@ -10,6 +10,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
+const port = process.env.PORT || 3000;
 const MONGODB_URI =
   "mongodb://dhriti:Tiger2024@ac-j9kdgql-shard-00-00.b0eomnh.mongodb.net:27017,ac-j9kdgql-shard-00-01.b0eomnh.mongodb.net:27017,ac-j9kdgql-shard-00-02.b0eomnh.mongodb.net:27017/users?replicaSet=atlas-qr4v3u-shard-0&tls=true&authSource=admin";
 
@@ -77,8 +78,12 @@ mongoose
       }
     });*/
     console.log("Database Connected");
-    app.listen(3000);
+
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
   })
   .catch((err) => {
     console.log("Database Connection failed", err);
   });
+
