@@ -186,7 +186,7 @@ exports.postAddProject = (req, res, next) => {
     })
     .then((result) => {
       console.log("Created Project");
-      res.redirect("/admin/project");
+      res.redirect("/admin/project-list");
     })
     .catch((err) => {
       console.log(err);
