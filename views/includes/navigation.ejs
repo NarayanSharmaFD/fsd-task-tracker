@@ -4,14 +4,14 @@
     <button id="side-menu-toggle">Menu</button>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
-            <li class="main-header__item">
+            <!--<li class="main-header__item">
                 <a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
             </li>
             <li class="main-header__item">
                 <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
-            </li>
+            </li>-->
             <% if (isAuthenticated) { %>
-                <li class="main-header__item">
+                <!--<li class="main-header__item">
                     <a class="<%= path === '/admin/roles' ? 'active' : '' %>" href="/admin/roles">Role</a>
                 </li>
                 <li class="main-header__item">
@@ -19,17 +19,16 @@
                 </li>
                 <li class="main-header__item">
                     <a class="<%= path === '/admin/project' ? 'active' : '' %>" href="/admin/project">Project</a>
-                </li>
+                </li>-->
                 <li class="main-header__item">
                     <a class="<%= path === '/admin/project-list' ? 'active' : '' %>" href="/admin/project-list">Project List</a>
                 </li>
-                <li class="main-header__item">
-                    <a class="<%= path === '/admin/task' ? 'active' : '' %>" href="/admin/task">Task</a>
-                </li>
-                <li class="main-header__item">
-                    <a class="<%= path === '/admin/user' ? 'active' : '' %>" href="/admin/user">User</a>
-                </li>
-                <li class="main-header__item">
+                <% if (userRole === 'Admin') { %>
+                    <li class="main-header__item">
+                        <a class="<%= path === '/admin/user-list' ? 'active' : '' %>" href="/admin/user-list">User Management</a>
+                    </li>
+                <% } %>
+                <!--<li class="main-header__item">
                     <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
                 </li>
                 <li class="main-header__item">
@@ -42,7 +41,7 @@
                 <li class="main-header__item">
                     <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products
                     </a>
-                </li>
+                </li>-->
             <% } %>
         </ul>
         <ul class="main-header__item-list">

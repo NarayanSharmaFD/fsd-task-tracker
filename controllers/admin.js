@@ -104,6 +104,8 @@ exports.getAddUser = async (req, res, next) => {
     roles: roles,
     path: "/admin/user",
     isAuthenticated: true,
+    userRole: req.session.user.role.role_name,
+    userName: req.session.user.name
   });
 };
 
@@ -137,7 +139,7 @@ exports.postAddUser = async (req, res, next) => {
         })
         .then((result) => {
           console.log("Created User");
-          res.redirect("/admin/user");
+          res.redirect("/admin/user-list");
         });
     })
     .catch((err) => {
@@ -253,6 +255,28 @@ exports.postAddTask = (req, res, next) => {
     });
 };
 
+exports.getUserList = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    console.log("User List:", users);
+
+    res.render("admin/user-list", {
+      pageTitle: "User List",
+      users,
+      path: "/admin/user-list",
+      isAuthenticated: true,
+      userRole: req.session.user.role.role_name,
+      userName: req.session.user.name
+    });
+
+  }
+  catch (err) {
+    console.error(err);
+    res.status(500).send("Something went wrong");
+  }
+
+};
+
 exports.getProjectList = async (req, res, next) => {
   try {
     const user = req.session.user; // assuming req.user is set after authentication
@@ -311,6 +335,17 @@ exports.postDeleteProject = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+exports.postDeleteUser = (req, res, next) => {
+  console.log("User details for delete:", req.body);
+  const userId = req.body.userId;
+  User.findByIdAndRemove(userId)
+  .then(() => {
+    console.log('User deleted');
+    res.redirect('/admin/user-list');
+  })
+  .catch((err) => console.log(err));
+};
+
 exports.postDeleteTask = (req, res, next) => {
   console.log("Task details for delete:", req.body);
 
@@ -325,7 +360,7 @@ exports.postDeleteTask = (req, res, next) => {
     res.redirect("/admin/task-list");
   })
   .catch((err) => console.log(err));
-}
+};
 
 /*exports.getTaskList = (req, res, next) => {
 

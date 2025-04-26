@@ -7,7 +7,9 @@
 
             <main>
                 <div style="margin: 20px;">
-                    <a href="/admin/create-task/<%= projectId %>" class="btn">Create Task</a>
+                    <a href="/admin/create-task/<%= projectId %>" class="btn <%= userRole === 'User' ? 'disabled' : '' %>">
+                        Create Task
+                    </a>
                 </div>
                 <% if (tasks.length > 0) { %>
                     <div class="grid">

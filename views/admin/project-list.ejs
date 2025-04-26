@@ -6,6 +6,11 @@
         <%- include('../includes/navigation.ejs') %>
 
             <main>
+                <div style="margin: 20px;">
+                    <a href="/admin/project" class="btn <%= userRole !== 'Admin' ? 'disabled' : '' %>">
+                        Create Project
+                    </a>
+                </div>
                 <% if (projects.length > 0) { %>
                     <div class="grid">
                         <% for (let product of projects) { %>

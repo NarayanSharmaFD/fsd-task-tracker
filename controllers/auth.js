@@ -32,7 +32,7 @@ exports.postLogin = (req, res, next) => {
             req.session.user = user;
             return req.session.save((err) => {
               console.log(err);
-              res.redirect("/");
+              res.redirect("/admin/project-list");
             });
           }
           res.redirect("/login");

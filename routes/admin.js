@@ -58,6 +58,15 @@ router.get('/edit-task/:taskId', isAuth, adminController.getEditTask);
 
 router.post('/edit-task/:taskId', isAuth, adminController.postEditTask);
 
+router.get('/user-list', adminController.getUserList);
+
+router.post('/delete-user', adminController.postDeleteUser);
+
+router.get('/edit-user/:userId', adminController.getEditUser);
+
+router.post('/edit-user/:userId', adminController.postEditUser);
+
+
 
 
 

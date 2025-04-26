@@ -1,0 +1,48 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>User List</h1>
+  
+        <!-- Add User Button -->
+        <a href="/admin/user" class="btn" style="background-color: #4CAF50;">Add User</a>
+      </div>
+
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role.role_name %></td>
+            <td>
+              <!-- Edit Button -->
+              <a href="/admin/edit-user/<%= user._id %>" class="btn">Edit</a>
+
+              <!-- Delete Form -->
+              <form action="/admin/delete-user" method="POST" style="display: inline;">
+                <input type="hidden" name="userId" value="<%= user._id %>">
+                <button type="submit" class="btn" style="background-color: #ff0000;">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </main>
+
+  <%- include('../includes/end.ejs') %>
+</body>
