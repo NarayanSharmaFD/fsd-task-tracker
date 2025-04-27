@@ -62,9 +62,9 @@ router.get('/user-list', adminController.getUserList);
 
 router.post('/delete-user', adminController.postDeleteUser);
 
-router.get('/edit-user/:userId', adminController.getEditUser);
+//router.get('/edit-user/:userId', adminController.getEditUser);
 
-router.post('/edit-user/:userId', adminController.postEditUser);
+//router.post('/edit-user/:userId', adminController.postEditUser);
 
 
 
