@@ -21,11 +21,11 @@
                     <a class="<%= path === '/admin/project' ? 'active' : '' %>" href="/admin/project">Project</a>
                 </li>-->
                 <li class="main-header__item">
-                    <a class="<%= path === '/admin/project-list' ? 'active' : '' %>" href="/admin/project-list">Project List</a>
+                    <a class="<%= path === '/project-list' ? 'active' : '' %>" href="/project-list">Project List</a>
                 </li>
                 <% if (userRole === 'Admin') { %>
                     <li class="main-header__item">
-                        <a class="<%= path === '/admin/user-list' ? 'active' : '' %>" href="/admin/user-list">User Management</a>
+                        <a class="<%= path === '/user-list' ? 'active' : '' %>" href="/user-list">User Management</a>
                     </li>
                 <% } %>
                 <!--<li class="main-header__item">

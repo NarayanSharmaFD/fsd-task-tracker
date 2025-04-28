@@ -7,7 +7,7 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <form class="login-form" action="<%= editing ? '/admin/edit-task/' + task._id : '/admin/task/' + project_id %>"  method="POST">
+        <form class="login-form" action="<%= editing ? '/edit-task/' + task._id : '/task/' + project_id %>"  method="POST">
             <div class="form-control">
                 <label for="task_name">Task Name</label>
                 <input type="task_name" name="task_name" id="task_name" value="<%= editing ? task.task_name : '' %>" required>

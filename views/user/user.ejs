@@ -8,8 +8,11 @@
 
     <main>
         <form class="login-form" 
-          action="<%= editing ? '/admin/user/' + user._id + '?_method=PUT' : '/admin/user' %>" 
+          action="<%= editing ? '/edit-user/' + user._id  : '/user' %>" 
           method="POST">
+          <% if (editing) { %>
+            <input type="hidden" name="userId" value="<%= user._id %>">
+        <% } %>
             <div class="form-control">
                 <label for="name">Name</label>
                 <input type="name" name="name" id="name" value="<%= editing ? user.name : '' %>">

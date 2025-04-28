@@ -9,7 +9,7 @@
     <div style="margin: 20px; display: flex; justify-content: space-between; align-items: center;">
         <h1>Project List</h1>
 
-        <form action="/admin/project" method="GET">
+        <form action="/project" method="GET">
         <button 
             class="btn <%= userRole !== 'Admin' ? 'disabled-btn' : '' %>" 
             type="submit"
@@ -41,13 +41,13 @@
                 <td><%= product.project_owner_id.name %></td>
                 <td>
                 <% if (userRole !== 'User') { %>
-                    <a href="/admin/edit-project/<%= product._id %>?edit=true" class="btn">Edit</a>
+                    <a href="/edit-project/<%= product._id %>?edit=true" class="btn">Edit</a>
                 <% } else { %>
                     <button class="btn disabled-btn" disabled>Edit</button>
                 <% } %>
 
                 <% if (userRole === 'Admin') { %>
-                    <form action="/admin/delete-project" method="POST" style="display:inline;">
+                    <form action="/delete-project" method="POST" style="display:inline;">
                     <input type="hidden" name="projectId" value="<%= product._id %>">
                     <button class="btn" onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
                     </form>
@@ -55,7 +55,7 @@
                     <button class="btn disabled-btn" disabled>Delete</button>
                 <% } %>
 
-                <a href="/admin/task-list/<%= product._id %>" class="btn">Go To Task</a>
+                <a href="/task-list/<%= product._id %>" class="btn">Go To Task</a>
                 </td>
             </tr>
             <% } %>

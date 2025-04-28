@@ -10,7 +10,7 @@
         <h1>User List</h1>
   
         
-        <a href="/admin/user" class="btn" style="background-color: #4CAF50;">Add User</a>
+        <a href="/user" class="btn" style="background-color: #4CAF50;">Add User</a>
       </div>
 
     <table class="user-table">
@@ -30,10 +30,10 @@
             <td><%= user.role.role_name %></td>
             <td>
               
-              <a href="/admin/edit-user/<%= user._id %>?edit=true" class="btn">Edit</a>
+              <a href="/edit-user/<%= user._id %>?edit=true" class="btn">Edit</a>
 
               
-              <form action="/admin/delete-user" method="POST" style="display: inline;">
+              <form action="/delete-user" method="POST" style="display: inline;">
                 <input type="hidden" name="userId" value="<%= user._id %>">
                 <button type="submit" class="btn" style="background-color: #ff0000;">Delete</button>
               </form>

@@ -21,6 +21,7 @@ exports.postLogin = (req, res, next) => {
   //User.findById("6808d2e7454ded7e78261afa")
   User.findOne({ email: email })
     .then((user) => {
+      console.log("User:", user);
       if (!user) {
         return res.redirect("/login");
       }
@@ -32,7 +33,7 @@ exports.postLogin = (req, res, next) => {
             req.session.user = user;
             return req.session.save((err) => {
               console.log(err);
-              res.redirect("/admin/project-list");
+              res.redirect("/project-list");
             });
           }
           res.redirect("/login");
@@ -91,6 +92,6 @@ exports.postSignup = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   req.session.destroy((err) => {
     console.log(err);
-    res.redirect("/");
+    res.redirect("/login");
   });
 };

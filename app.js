@@ -8,7 +8,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 //const csrf = require('csurf');
 
 const errorController = require("./controllers/error");
-const User = require("./models/user");
+const User = require("./models/user_master");
 
 const port = process.env.PORT || 3000;
 const MONGODB_URI =
@@ -26,8 +26,11 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
-const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth");
+const projectRoutes = require('./routes/project-routes');
+const taskRoutes = require('./routes/task-routes');
+const userRoutes = require('./routes/user-routes');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
@@ -55,8 +58,11 @@ app.use((req, res, next) => {
 });
 
 app.use("/admin", adminRoutes);
-app.use(shopRoutes);
 app.use(authRoutes);
+app.use(projectRoutes);
+app.use(taskRoutes);
+app.use(userRoutes);
+
 app.use(errorController.get404);
 
 mongoose
