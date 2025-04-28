@@ -57,4 +57,22 @@ a.disabled {
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.user-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
   }
+  
+  .user-table th, .user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #f2f2f2;
+  }
+  
+  

@@ -105,7 +105,8 @@ exports.getAddUser = async (req, res, next) => {
     path: "/admin/user",
     isAuthenticated: true,
     userRole: req.session.user.role.role_name,
-    userName: req.session.user.name
+    userName: req.session.user.name,
+    editing: false
   });
 };
 
@@ -416,11 +417,12 @@ exports.getTaskList = async (req, res, next) => {
       if (projectId) {
         taskFilter.project_id = projectId;
       }
-
+      // Fetch the tasks for the user
       tasks = await Task.find(taskFilter)
-        .populate('task_owner_id', 'name email')
-        .populate('project_id', 'project_name');
+      .populate('task_owner_id', 'name email')
+      .populate('project_id', 'project_name');
     }
+    console.log("Task details:", tasks);
 
     res.render("admin/task-list", {
       pageTitle: 'Task List',
@@ -469,6 +471,34 @@ exports.getEditTask = async (req, res, next) => {
     console.error('Edit Task Error:', err);
     res.redirect('/admin/task-list');
   }
+};
+
+exports.getEditUser = async (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect('/admin/user-list');
+  }
+  const userId = req.params.userId;
+  console.log("Edit used id", userId);
+  const role = await Role.find();
+  console.log("Role details:", role);
+  User.findById(userId)
+  .then((user) => {
+    console.log("USER:",user);
+    if(!user) {
+      return res.redirect("/admin/user-list");
+    }
+    res.render("admin/user", {
+      pageTitle: "Edit User",
+      path: "admin/user",
+      editing: editMode,
+      roles: role,
+      user: user,
+      isAuthenticated: req.session.isLoggedIn,
+      userRole: req.session.user.role.role_name,
+      userName: req.session.user.name
+    })
+  })
 };
 
 exports.getEditProject = async (req, res, next) => {

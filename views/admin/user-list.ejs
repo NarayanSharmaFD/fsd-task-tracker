@@ -9,7 +9,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1>User List</h1>
   
-        <!-- Add User Button -->
+        
         <a href="/admin/user" class="btn" style="background-color: #4CAF50;">Add User</a>
       </div>
 
@@ -29,10 +29,10 @@
             <td><%= user.email %></td>
             <td><%= user.role.role_name %></td>
             <td>
-              <!-- Edit Button -->
-              <a href="/admin/edit-user/<%= user._id %>" class="btn">Edit</a>
+              
+              <a href="/admin/edit-user/<%= user._id %>?edit=true" class="btn">Edit</a>
 
-              <!-- Delete Form -->
+              
               <form action="/admin/delete-user" method="POST" style="display: inline;">
                 <input type="hidden" name="userId" value="<%= user._id %>">
                 <button type="submit" class="btn" style="background-color: #ff0000;">Delete</button>
@@ -46,3 +46,4 @@
 
   <%- include('../includes/end.ejs') %>
 </body>
+
