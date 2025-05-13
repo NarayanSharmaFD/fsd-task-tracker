@@ -194,29 +194,80 @@ exports.getEditTask = async (req, res, next) => {
 };
 
 
-exports.postEditTask = (req, res, next) => {
-  console.log("Updated task details", req.body)
-  const task_id = req.body.taskId;
-  const task_name = req.body.task_name;
-  const task_description = req.body.task_description;
-  const task_due_date = req.body.due_date;
-  const task_owner_id = req.body.task_owner;
-  const status_id = req.body.status;
-  const project_id = req.body.projectId;
+exports.postEditTask = async(req, res, next) => {
+  // console.log("Updated task details", req.body)
+  // const task_id = req.body.taskId;
+  // const task_name = req.body.task_name;
+  // const task_description = req.body.task_description;
+  // const task_due_date = req.body.due_date;
+  // const task_owner_id = req.body.task_owner;
+  // const status_id = req.body.status;
+  // const project_id = req.body.projectId;
 
-  Task.findById(task_id)
-  .then((task) => {
+  // Task.findById(task_id)
+  // .then((task) => {
+  //   task.task_name = task_name;
+  //   task.task_description = task_description;
+  //   task.task_due_date = task_due_date;
+  //   task.task_owner_id = task_owner_id;
+  //   task.project_id = project_id;
+  //   task.status_id = status_id;
+  //   return task.save();
+  // })
+  // .then((result) => {
+  //   console.log("UPDATED Task!");
+  //   res.redirect(`/task-list/${project_id}`);
+  // })
+  // .catch((err) => console.log(err));
+  try {
+    console.log("Updated task details", req.body);
+
+    const task_id = req.body.taskId;
+    const task_name = req.body.task_name;
+    const task_description = req.body.task_description;
+    const task_due_date = req.body.due_date;
+    const task_owner_id = req.body.task_owner;
+    const status_id = req.body.status;
+    const project_id = req.body.projectId;
+
+    const task = await Task.findById(task_id);
+    if (!task) {
+      return res.status(404).send("Task not found");
+    }
+
+    const prev_status = task.status_id;
+    const prev_task_name = task.task_name;
+
+    // Update task fields
     task.task_name = task_name;
     task.task_description = task_description;
     task.task_due_date = task_due_date;
     task.task_owner_id = task_owner_id;
     task.project_id = project_id;
     task.status_id = status_id;
-    return task.save();
-  })
-  .then((result) => {
+
+    // Save updated task
+    await task.save();
+
+    // Audit only if status has changed
+    if (prev_status !== status_id) {
+      const auditEntry = new Audit({
+        task_id: task._id,
+        task_name: prev_task_name,
+        prev_status: prev_status,
+        present_status: status_id,
+        task_owner: req.session.user.name, // assuming session has logged-in user
+        project_id: project_id,
+        project_name: task.project_name || "Unknown", // project_name should ideally be populated
+      });
+
+      await auditEntry.save();
+    }
+
     console.log("UPDATED Task!");
     res.redirect(`/task-list/${project_id}`);
-  })
-  .catch((err) => console.log(err));
+  } catch (err) {
+    console.error("Error updating task:", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
